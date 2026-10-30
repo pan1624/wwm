@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#333333">
+    <title>Neutral Grip Pull Down · WWM</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body data-exercise="neutral_grip_pull_down">
+    <a class="home-button" href="back.html" aria-label="返回">⬅️</a>
+    <header>
+        <h1>Neutral Grip Pull Down</h1>
+        <p id="exerciseDescription">下拉時身體微微向後、手肘順勢向內夾、挺胸，回放時身體回正，注意節奏、切勿過快。</p>
+    </header>
+    <main class="stage">
+        <figure>
+            <video id="standardVideo" src="neutral_grip_pull_down.mp4" playsinline muted preload="auto"></video>
+            <figcaption>示範</figcaption>
+        </figure>
+        <figure class="camera">
+            <div class="frame">
+                <video id="userCamera" playsinline muted></video>
+                <canvas id="overlay"></canvas>
+            </div>
+            <figcaption>你</figcaption>
+        </figure>
+    </main>
+    <button id="startBtn" type="button">開始</button>
+    <p id="status" role="status"></p>
+    <div id="similarityDisplay" aria-live="polite"></div>
+    <script type="module" src="js/exercise.js"></script>
+</body>
+</html>

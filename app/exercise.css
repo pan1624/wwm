@@ -1,0 +1,89 @@
+/* 動作頁面共用樣式，沿用原本 WWM 的鐵灰底、淡黃字 */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+    font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+    background-color: #333;
+    color: #FFEB99;
+    text-align: center;
+}
+
+.home-button {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #555;
+    border: 2px solid white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+header { max-width: 720px; margin: 0 auto; padding: 0 48px; }
+h1 { margin: 4px 0 8px; font-size: 28px; }
+#exerciseDescription { margin: 0; font-size: 14px; line-height: 1.6; color: #f2e6b3; }
+
+.stage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 20px auto 8px;
+}
+
+figure { margin: 0; position: relative; }
+
+figure video,
+figure canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #222;
+    border: 2px solid #FFEB99;
+    border-radius: 10px;
+}
+
+/* 鏡頭畫面做鏡像，看起來像照鏡子；骨架疊在上面一起翻轉 */
+.camera video,
+.camera canvas { transform: scaleX(-1); }
+.frame { position: relative; }
+.camera canvas { position: absolute; inset: 0; height: 100%; border-color: transparent; background: transparent; }
+
+figcaption { margin-top: 6px; font-size: 13px; color: #ccc; }
+
+#startBtn {
+    margin-top: 12px;
+    min-width: 160px;
+    min-height: 48px;
+    padding: 12px 32px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    background-color: #FFEB99;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#startBtn:hover { background-color: #FFD700; }
+#startBtn:disabled { opacity: 0.5; cursor: default; }
+
+#status { min-height: 1.4em; margin: 12px auto 0; max-width: 640px; font-size: 14px; color: #ddd; }
+
+#similarityDisplay { max-width: 640px; margin: 12px auto 0; }
+#similarityDisplay .score { font-size: 36px; font-weight: bold; }
+#similarityDisplay .breakdown { margin-top: 4px; font-size: 14px; color: #ddd; }
+#similarityDisplay .feedback { margin: 12px auto 0; padding: 0; list-style: none; line-height: 1.8; }
+
+@media (max-width: 640px) {
+    .stage { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#333333">
+    <title>Bicep Curl · WWM</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body data-exercise="bicep_curl">
+    <a class="home-button" href="arms.html" aria-label="返回">⬅️</a>
+    <header>
+        <h1>Bicep Curl</h1>
+        <p id="exerciseDescription">保持上臂不動，由掌心朝自己的方向旋轉將啞鈴拉起至掌心向上的方向，來回等速保持節奏。</p>
+    </header>
+    <main class="stage">
+        <figure>
+            <video id="standardVideo" src="bicep_curl.mp4" playsinline muted preload="auto"></video>
+            <figcaption>示範</figcaption>
+        </figure>
+        <figure class="camera">
+            <div class="frame">
+                <video id="userCamera" playsinline muted></video>
+                <canvas id="overlay"></canvas>
+            </div>
+            <figcaption>你</figcaption>
+        </figure>
+    </main>
+    <button id="startBtn" type="button">開始</button>
+    <p id="status" role="status"></p>
+    <div id="similarityDisplay" aria-live="polite"></div>
+    <script type="module" src="js/exercise.js"></script>
+</body>
+</html>

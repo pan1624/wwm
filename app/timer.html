@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333; /* 鐵灰色背景 */
+            color: #FFEB99; /* 淡黃色字體 */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #555; /* 鐵灰色背景 */
+            border: 2px solid white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #777; /* 鼠標懸停變亮 */
+        }
+
+        .home-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #FFEB99; /* 淡黃色圖標 */
+        }
+
+        .wave-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .timer-circle {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #FFEB99; /* 淡黃色邊框 */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #FFEB99;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2; /* 保證時間顯示在最上層 */
+        }
+
+        .wave {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .wave svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wave path {
+            fill: rgba(255, 235, 153, 0.4); /* 半透明淡黃色 */
+            animation: wave-animation 3s infinite linear;
+        }
+
+        @keyframes wave-animation {
+            0% {
+                transform: scale(1) translateY(0px);
+            }
+            50% {
+                transform: scale(1.1) translateY(-10px);
+            }
+            100% {
+                transform: scale(1) translateY(0px);
+            }
+        }
+
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column; /* 按鈕垂直排列 */
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 2px solid white;
+            background-color: #555;
+            color: #FFEB99;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 150px; /* 統一按鈕寬度 */
+        }
+
+        button:hover {
+            background-color: #777;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回首頁按鈕 -->
+    <div class="home-button" onclick="goToHome()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </div>
+
+    <div class="wave-container">
+        <!-- 波浪特效 -->
+        <div class="wave hidden" id="wave">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,50 Q25,0 50,50 T100,50 V100 H0 Z"></path>
+            </svg>
+        </div>
+
+        <!-- 計時圓圈 -->
+        <div class="timer-circle" id="timerDisplay">0:00</div>
+    </div>
+
+    <div class="button-container">
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+        <button id="restartButton">Restart</button>
+    </div>
+
+    <script>
+        let timerInterval;
+        let elapsedTime = 0;
+
+        const timerDisplay = document.getElementById("timerDisplay");
+        const startButton = document.getElementById("startButton");
+        const stopButton = document.getElementById("stopButton");
+        const restartButton = document.getElementById("restartButton");
+
+        const wave = document.getElementById("wave");
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                // 啟動計時器
+                timerInterval = setInterval(() => {
+                    elapsedTime++;
+                    timerDisplay.textContent = formatTime(elapsedTime);
+                }, 1000);
+
+                // 顯示波浪動畫
+                wave.classList.remove("hidden");
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            // 停止波浪動畫
+            wave.classList.add("hidden");
+        }
+
+        function restartTimer() {
+            stopTimer(); // 停止計時器和特效
+            elapsedTime = 0;
+            timerDisplay.textContent = "0:00";
+        }
+
+        function goToHome() {
+            window.location.href = "interface.html"; // 修改為主頁面檔案名稱
+        }
+
+        startButton.addEventListener("click", startTimer);
+        stopButton.addEventListener("click", stopTimer);
+        restartButton.addEventListener("click", restartTimer);
+    </script>
+</body>
+</html>

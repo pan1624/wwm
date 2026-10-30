@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arms Workout</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333; /* 鐵灰色背景 */
+            color: #FFEB99; /* 淡黃色字體 */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #555; /* 鐵灰色背景 */
+            border: 2px solid white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #777; /* 鼠標懸停變亮 */
+        }
+
+        .home-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #FFEB99; /* 淡黃色圖標 */
+        }
+
+        .app-header {
+            margin-bottom: 20px;
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .app-header p {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .grid-item {
+            background-color: #555; /* 按鈕背景色 */
+            color: #FFEB99; /* 按鈕文字顏色 */
+            font-size: 18px;
+            border: 2px solid white;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .grid-item:hover {
+            background-color: #777; /* 滑鼠懸停時的背景色 */
+            transform: scale(1.05); /* 輕微放大效果 */
+        }
+
+        .grid-item:active {
+            background-color: #333; /* 點擊時背景色 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 返回首頁按鈕 -->
+    <div class="home-button" onclick="goToHome()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Arms Workout</h1>
+            <p>Select your pose</p>
+        </header>
+        <main class="app-main">
+            <div class="grid-container">
+                <button class="grid-item" onclick="location.href='shoulder_press.html'">Shoulder Press</button>
+                <button class="grid-item" onclick="location.href='side_lateral_raise.html'">Side Lateral Raise</button>
+                <button class="grid-item" onclick="location.href='bicep_curl.html'">Bicep Curl</button>
+                <button class="grid-item" onclick="location.href='hammer_curl.html'">Hammer Curl</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function goToHome() {
+            window.location.href = "interface.html"; // 返回主頁面
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#333333">
+    <title>Side Lateral Raise · WWM</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body data-exercise="side_lateral_raise">
+    <a class="home-button" href="arms.html" aria-label="返回">⬅️</a>
+    <header>
+        <h1>Side Lateral Raise</h1>
+        <p id="exerciseDescription">手臂微微往斜前方舉起至肩膀後回放，來回保持等速，切勿下放過快。</p>
+    </header>
+    <main class="stage">
+        <figure>
+            <video id="standardVideo" src="side_lateral_raise.mp4" playsinline muted preload="auto"></video>
+            <figcaption>示範</figcaption>
+        </figure>
+        <figure class="camera">
+            <div class="frame">
+                <video id="userCamera" playsinline muted></video>
+                <canvas id="overlay"></canvas>
+            </div>
+            <figcaption>你</figcaption>
+        </figure>
+    </main>
+    <button id="startBtn" type="button">開始</button>
+    <p id="status" role="status"></p>
+    <div id="similarityDisplay" aria-live="polite"></div>
+    <script type="module" src="js/exercise.js"></script>
+</body>
+</html>

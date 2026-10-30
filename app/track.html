@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track</title>
+    <style>
+        /* 全局樣式 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333; /* 鐵灰色背景 */
+            color: #FFEB99; /* 淡黃色字體 */
+            text-align: center;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: #555; /* 鐵灰色背景 */
+            border: 2px solid white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #777; /* 鼠標懸停變亮 */
+        }
+
+        .home-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #FFEB99; /* 淡黃色圖標 */
+        }
+
+        .app-header {
+            padding: 20px;
+        }
+
+        .app-header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .button-container {
+            margin: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 2px solid white;
+            background-color: #555;
+            color: #FFEB99;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #777;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .section {
+            margin: 20px;
+            padding: 20px;
+            border: 2px solid white; /* 白色邊框 */
+            border-radius: 10px;
+        }
+
+        /* Training 表格的改善配色 */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 2px solid #FFF; /* 白色邊框 */
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3B82F6; /* 表頭藍色背景 */
+            color: #FFEB99; /* 表頭文字顏色 */
+        }
+
+        td {
+            background-color: #1E293B; /* 表格深藍背景 */
+            color: #FFEB99; /* 表格文字顏色 */
+        }
+
+        td:hover {
+            background-color: #475569; /* 滑鼠懸停淺藍色 */
+            cursor: pointer;
+        }
+
+        #chartContainer {
+            width: 80%;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        /* 彈窗樣式改進 */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #1E293B; /* 深藍背景 */
+            border: 2px solid white;
+            border-radius: 10px;
+            color: #FFEB99; /* 淡黃色字體 */
+            width: 300px;
+        }
+
+        .popup label,
+        .popup input,
+        .popup select,
+        .popup button {
+            display: block; /* 垂直排列 */
+            margin: 10px auto;
+            width: 90%; /* 調整寬度 */
+            text-align: left;
+        }
+
+        .popup button {
+            background-color: #3B82F6; /* 藍色按鈕背景 */
+            color: #FFEB99; /* 按鈕文字顏色 */
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #475569; /* 滑鼠懸停淺藍色 */
+        }
+
+        .popup.hidden {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 引入 Chart.js -->
+</head>
+<body>
+    <!-- 左上角房子圖標返回首頁 -->
+    <div class="home-button" onclick="goToHome()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+    </div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Track</h1>
+        </header>
+        <main class="app-main">
+            <!-- 功能選擇按鈕 -->
+            <div class="button-container">
+                <button onclick="showSection('weightSection')">Weight</button>
+                <button onclick="showSection('trainingSection')">Training</button>
+            </div>
+
+            <!-- Weight 功能 -->
+            <section id="weightSection" class="section hidden">
+                <h2>Weight Tracking</h2>
+                <div class="form-group">
+                    <input type="number" id="weightInput" placeholder="輸入體重 (kg)">
+                    <button onclick="saveWeight()">記錄體重</button>
+                </div>
+                <div id="chartContainer">
+                    <canvas id="weightChart"></canvas>
+                </div>
+                <button onclick="goBack()">返回</button>
+            </section>
+
+            <!-- Training 功能 -->
+            <section id="trainingSection" class="section hidden">
+                <h2>Training</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                            <td onclick="openTrainingInput(this)">Click to Add</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="goBack()">返回</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Training 輸入彈窗 -->
+    <div id="trainingInputPopup" class="popup hidden">
+        <h2>Add Training</h2>
+        <label for="part">Select Part:</label>
+        <select id="part">
+            <option value="Arms">Arms</option>
+            <option value="Back">Back</option>
+            <option value="Abs">Abs</option>
+            <option value="Chest">Chest</option>
+            <option value="Booty">Booty</option>
+            <option value="Thigh">Thigh</option>
+            <option value="Other">Other (Enter Below)</option>
+        </select>
+        <input type="text" id="customPart" placeholder="Enter Custom Part (if Other selected)" class="hidden">
+
+        <label for="sets">Number of Sets:</label>
+        <input type="number" id="sets" placeholder="Enter Sets (1-10)">
+
+        <label for="weight">Enter Weight (kg):</label>
+        <input type="number" id="trainingWeight" placeholder="Enter Weight">
+
+        <button onclick="saveTraining()">Save</button>
+        <button onclick="closeTrainingInput()">Cancel</button>
+    </div>
+
+    <script>
+        // 返回首頁邏輯
+        function goToHome() {
+            window.location.href = "interface.html"; // 修改為你的首頁檔案名稱
+        }
+
+        // 顯示特定區域
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        function goBack() {
+            document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
+        }
+
+        // Weight 折線圖邏輯
+        const weightData = [];
+        const dateLabels = [];
+        const weightChartCtx = document.getElementById('weightChart').getContext('2d');
+        const weightChart = new Chart(weightChartCtx, {
+            type: 'line',
+            data: {
+                labels: dateLabels,
+                datasets: [{
+                    label: '體重 (kg)',
+                    data: weightData,
+                    borderColor: '#FF5722', // 明亮橘色線條
+                    backgroundColor: 'rgba(255, 87, 34, 0.2)', // 淡橘色透明填充
+                    borderWidth: 3,
+                    pointBackgroundColor: '#FFC107', // 點的顏色 (亮黃色)
+                    pointRadius: 6, // 點的大小
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: { display: true, text: '日期', color: '#FFEB99' },
+                        ticks: { color: '#FFEB99' }
+                    },
+                    y: {
+                        title: { display: true, text: '體重 (kg)', color: '#FFEB99' },
+                        ticks: {
+                            stepSize: 10,
+                            color: '#FFEB99'
+                        },
+                        min: 0,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#FFEB99' // 圖例文字顏色
+                        }
+                    }
+                }
+            }
+        });
+
+        function saveWeight() {
+            const weightInput = document.getElementById('weightInput').value;
+            const today = new Date().toLocaleDateString();
+            if (!dateLabels.includes(today)) {
+                dateLabels.push(today);
+                weightData.push(parseFloat(weightInput));
+                weightChart.update();
+            }
+        }
+
+        // Training 功能
+        let activeCell;
+
+        function openTrainingInput(cell) {
+            activeCell = cell;
+            document.getElementById('trainingInputPopup').classList.remove('hidden');
+        }
+
+        function closeTrainingInput() {
+            document.getElementById('trainingInputPopup').classList.add('hidden');
+        }
+
+        function saveTraining() {
+            const part = document.getElementById('part').value;
+            const sets = document.getElementById('sets').value;
+            const weight = document.getElementById('trainingWeight').value;
+
+            activeCell.innerHTML = `<strong>${part}</strong><br>Sets: ${sets}<br>Weight: ${weight}kg`;
+            closeTrainingInput();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

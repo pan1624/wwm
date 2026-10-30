@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#333333">
+    <meta name="description" content="WWM：跟著示範影片做動作，AI 即時分析你的姿勢並評分。">
+    <title>WWM 健身首頁</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: #333;
+            color: #FFEB99;
+            text-align: center;
+        }
+
+        h1 { margin: 0; font-size: 48px; letter-spacing: 4px; }
+        p { margin: 0 0 16px; font-size: 15px; }
+
+        .start-button {
+            padding: 15px 40px;
+            font-size: 18px;
+            color: #333;
+            background-color: #FFEB99;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .start-button:hover { background-color: #FFD700; }
+        .start-button:active { transform: scale(0.95); }
+
+        small { margin-top: 24px; max-width: 320px; color: #bbb; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <h1>WWM</h1>
+    <p>Workout With Me</p>
+    <button class="start-button" onclick="location.href='app/interface.html'">START</button>
+    <small>動作分析全程在你的裝置上執行，鏡頭畫面不會上傳。</small>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js').catch(console.error);
+        }
+    </script>
+</body>
+</html>

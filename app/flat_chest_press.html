@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#333333">
+    <title>Flat Chest Press · WWM</title>
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="exercise.css">
+</head>
+<body data-exercise="flat_chest_press">
+    <a class="home-button" href="chest.html" aria-label="返回">⬅️</a>
+    <header>
+        <h1>Flat Chest Press</h1>
+        <p id="exerciseDescription">Bench 調整至適當角度（大約0-30度），握起把手後手肘略低於上身，上推時節奏快且吐氣、下放時慢然後吸氣，手臂與身體的角度大約90度。</p>
+    </header>
+    <main class="stage">
+        <figure>
+            <video id="standardVideo" src="flat_chest_press.mp4" playsinline muted preload="auto"></video>
+            <figcaption>示範</figcaption>
+        </figure>
+        <figure class="camera">
+            <div class="frame">
+                <video id="userCamera" playsinline muted></video>
+                <canvas id="overlay"></canvas>
+            </div>
+            <figcaption>你</figcaption>
+        </figure>
+    </main>
+    <button id="startBtn" type="button">開始</button>
+    <p id="status" role="status"></p>
+    <div id="similarityDisplay" aria-live="polite"></div>
+    <script type="module" src="js/exercise.js"></script>
+</body>
+</html>
